@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/activity_margin"
+    tools:context=".MainActivity">
+
+    <!-- Overview category -->
+    <LinearLayout
+        android:id="@+id/input_data"
+        android:layout_width="match_parent"
+        android:layout_height="104dp"
+        android:orientation="horizontal"
+        android:paddingTop="16dp" android:baselineAligned="false">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:paddingBottom="16dp"
+                android:text="@string/age_field"
+                android:textAlignment="center"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@color/colorAccent" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="4dp">
+
+                <EditText
+                    android:id="@+id/age_field_edit_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:hint="@string/hint_age"
+                    android:inputType="number"
+                    android:textAlignment="center"
+                    android:textAppearance="?android:textAppearanceMedium" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:paddingBottom="16dp"
+                android:text="@string/height_field"
+                android:textAlignment="center"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@color/colorAccent" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="4dp">
+
+                <EditText
+                    android:id="@+id/height_field_edit_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:hint="@string/hint_height"
+                    android:inputType="number"
+                    android:textAlignment="center"
+                    android:textAppearance="?android:textAppearanceMedium" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:paddingBottom="16dp"
+                android:text="@string/weight_field"
+                android:textAlignment="center"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@color/colorAccent" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="4dp">
+
+                <EditText
+                    android:id="@+id/weight_field_edit_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:hint="@string/hint_weight"
+                    android:inputType="number"
+                    android:textAlignment="center"
+                    android:textAppearance="?android:textAppearanceMedium" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:paddingBottom="16dp"
+                android:text="@string/sex_field"
+                android:textAlignment="center"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@color/colorAccent" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="4dp">
+
+
+                <!-- Input field -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Sex drop-down spinner -->
+                    <Spinner
+                        android:id="@+id/spinner_sex"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:spinnerMode="dropdown"
+                        android:textAllCaps="true"
+                        android:textAppearance="?android:textAppearanceMedium" />
+                </LinearLayout>
+
+            </RelativeLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/stop_watch_screen"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="104dp"
+        android:fontFamily="sans-serif-light"
+        android:textAlignment="center"
+        android:gravity="center_vertical"
+        android:textColor="#000000"
+        android:textSize="64sp"
+        android:textStyle="bold"
+        tools:text="60" />
+
+    <Button
+        android:id="@+id/start_button"
+        android:layout_marginTop="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_gravity="right"
+        android:layout_marginRight="8dp"
+        android:background="@color/colorAccent"
+        android:text="@string/start_button"
+        android:textColor="@android:color/white" />
+
+
+</LinearLayout><!--&lt;!&ndash; Units for weight (kg) &ndash;&gt;--><!--<TextView--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:layout_alignParentEnd="true"--><!--android:layout_alignParentRight="true"--><!--android:paddingRight="16dp"--><!--android:paddingTop="16dp"--><!--android:textAppearance="?android:textAppearanceSmall"--><!--android:text="@string/unit_of_age" />-->
