@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     //Здесь хранится макета ввода данных
     private LinearLayout inputData;
     private TextView mSWScreen;
+    private LinearLayout resultData;
 
     //Переменные треда секундамера
     private Handler mSWHandler;
@@ -55,6 +56,13 @@ public class MainActivity extends AppCompatActivity {
     EditText ageField;
     EditText heightField;
     EditText weightField;
+    EditText initialRateField;
+
+    //Результирующие поля
+    TextView mocField;
+    TextView apField;
+    TextView aphrField;
+    EditText finalRateField;
 
     //let's check up the Timer
     private Timer mTimer;
@@ -109,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
         mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
         inputData = (LinearLayout) findViewById(R.id.input_data);
+        resultData = (LinearLayout) findViewById(R.id.result_data);
 
         mSexSpinner = (Spinner) findViewById(R.id.spinner_sex);
         setupSpinner();
@@ -121,18 +130,24 @@ public class MainActivity extends AppCompatActivity {
         ageField = (EditText) findViewById(R.id.age_field_edit_view);
         heightField = (EditText) findViewById(R.id.height_field_edit_view);
         weightField = (EditText) findViewById(R.id.weight_field_edit_view);
+        initialRateField = (EditText) findViewById(R.id.initial_rate_field_edit_view);
+        mocField = (TextView) findViewById(R.id.moc_field_text_view);
+        apField = (TextView) findViewById(R.id.ap_field_text_view);
+        aphrField = (TextView) findViewById(R.id.ap_hr_field_text_view);
+        finalRateField = (EditText) findViewById(R.id.final_rate_field_edit_view);
 
         AppData.swPaused = false;
         AppData.swStarted = false;
-
+        AppData.resultMode = false;
+        AppData.goBackMode = false;
 
         numberFormatErrorToast = Toast.makeText(this, getString(R.string.put_correct_data), Toast.LENGTH_LONG);
 
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!AppData.swStarted) {
-                    mSWValue = 30;
+                if (!AppData.swStarted && !AppData.resultMode && !AppData.goBackMode) {
+                    mSWValue = 3;
                     prepValue = 5;
                     if (!AppData.swPaused) {
                         try {
@@ -150,13 +165,20 @@ public class MainActivity extends AppCompatActivity {
                     startMetronome();
                     startButton.setText("отмена");
                     AppData.swStarted = true;
-                } else {
+                } else if (AppData.swStarted) {
                     releaseMediaPlayer();
                     if (mTimer != null) {
                         mTimer.cancel();
                     }
                     quantity = 0;//debugging field
                     stopStopWatch();
+                } else if (AppData.resultMode) {
+                    getResultData();
+                    AppData.resultMode = false;
+                    AppData.goBackMode = true;
+                    startButton.setText("обратно");
+                } else if (AppData.goBackMode) {
+                    goBack();
                 }
             }
         });
@@ -167,13 +189,22 @@ public class MainActivity extends AppCompatActivity {
         AppData.ageFieldInteger = Integer.parseInt(ageField.getText().toString());
         AppData.heightFieldInteger = Integer.parseInt(heightField.getText().toString());
         AppData.weightFieldInteger = Integer.parseInt(weightField.getText().toString());
+        AppData.initialRateFieldInteger = Integer.parseInt(initialRateField.getText().toString());
+        return Helpers.getMetronomeTimeInterval(AppData.ageFieldInteger, AppData.weightFieldInteger, AppData.mSex,
+                AppData.heightFieldInteger, AppData.initialRateFieldInteger);
+    }
 
-        return 60000 / 35;
+    private void getResultData() throws NumberFormatException {
+        AppData.finalRateFieldInteger = Integer.parseInt(finalRateField.getText().toString());
+        mocField.setText(Helpers.getMOCData(AppData.heightFieldInteger, AppData.weightFieldInteger,
+                Helpers.getStepRate(AppData.ageFieldInteger, AppData.weightFieldInteger, AppData.mSex,
+                        AppData.heightFieldInteger, AppData.initialRateFieldInteger),
+                AppData.finalRateFieldInteger, AppData.ageFieldInteger));
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onResume() {
+        super.onResume();
         if (AppData.swPaused) {
             startStopWatch();
             startMetronome();
@@ -181,13 +212,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        releaseMediaPlayer();
-        if (mTimer != null) {
-            mTimer.cancel();
+    protected void onPause() {
+        super.onPause();
+        if (AppData.swStarted) {
+            releaseMediaPlayer();
+            if (mTimer != null) {
+                mTimer.cancel();
+            }
+            pauseStopWatch();
         }
-        pauseStopWatch();
     }
 
     @Override
@@ -260,7 +293,7 @@ public class MainActivity extends AppCompatActivity {
                     } else if (mSWValue >= 0) {
                         mSWScreen.setText("0" + String.valueOf(mSWValue--));
                     } else {
-                        stopStopWatch();
+                        stopStopWatchAtTheEnd();
                     }
 
                 } finally {
@@ -279,6 +312,28 @@ public class MainActivity extends AppCompatActivity {
         //startButton.setEnabled(true);
         startButton.setText("старт");
         AppData.swStarted = false;
+        AppData.swPaused = false;
+    }
+
+    private void stopStopWatchAtTheEnd() {
+        mSWHandler.removeCallbacks(mSWUpdater);
+        mSWUpdater = null;
+        mSWScreen.setVisibility(View.GONE);
+        resultData.setVisibility(View.VISIBLE);
+        startButton.setText("итог");
+        AppData.swStarted = false;
+        AppData.swPaused = false;
+        AppData.resultMode = true;
+    }
+
+    private void goBack() {
+        inputData.setVisibility(View.VISIBLE);
+        resultData.setVisibility(View.GONE);
+        startButton.setText("старт");
+        AppData.swStarted = false;
+        AppData.swPaused = false;
+        AppData.resultMode = false;
+        AppData.goBackMode = false;
     }
 
     private void pauseStopWatch() {

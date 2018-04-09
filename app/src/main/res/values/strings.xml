@@ -8,12 +8,18 @@
     <string name="hint_sex">муж</string>
     <string name="weight_field">Вес</string>
     <string name="hint_weight">кг</string>
-    <string name="height_field">Рост</string>
+    <string name="height_field">Высота степа</string>
     <string name="hint_height">см</string>
     <string name="sex_male">МУЖ</string>
     <string name="sex_female">ЖЕН</string>
     <string name="start_button">старт</string>
     <string name="put_correct_data">Укажите корректные данные!</string>
+    <string name="initial_rate_field">Пульс</string>
+    <string name="mpc_field">МПК</string>
+    <string name="ap_field">АП</string>
+    <string name="ap_hr_field">ЧСС АП</string>
+    <string name="hint_final_heart_rate">уд/мин</string>
+    <string name="hint_initial_heart_rate">уд/мин</string>
 
 
 </resources>
