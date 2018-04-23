@@ -17,7 +17,9 @@ public class AppData {
     public static boolean resultMode;
     public static boolean goBackMode;
 
-
+    //интервал метронома
+    public static int metronomeInterval;
+    public static int stepRate;
 
     //данные полей и спинера
     public static int mSex;

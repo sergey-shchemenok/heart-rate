@@ -190,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
         AppData.heightFieldInteger = Integer.parseInt(heightField.getText().toString());
         AppData.weightFieldInteger = Integer.parseInt(weightField.getText().toString());
         AppData.initialRateFieldInteger = Integer.parseInt(initialRateField.getText().toString());
-        return Helpers.getMetronomeTimeInterval(AppData.ageFieldInteger, AppData.weightFieldInteger, AppData.mSex,
+        return 60000/Helpers.getStepRate(AppData.ageFieldInteger, AppData.weightFieldInteger, AppData.mSex,
                 AppData.heightFieldInteger, AppData.initialRateFieldInteger);
     }
 

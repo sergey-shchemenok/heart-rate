@@ -20,6 +20,8 @@
     <string name="ap_hr_field">ЧСС АП</string>
     <string name="hint_final_heart_rate">уд/мин</string>
     <string name="hint_initial_heart_rate">уд/мин</string>
+    <string name="cancel_button">отмена</string>
+    <string name="result_button">итоги</string>
 
 
 </resources>
